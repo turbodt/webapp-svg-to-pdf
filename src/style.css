@@ -1,0 +1,252 @@
+:root {
+    --main-max-width: 1400px;
+}
+
+body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: min-content auto min-content;
+    grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+footer {
+    justify-self: center;
+    width: 100%;
+}
+
+main {
+    justify-self: center;
+    width: 100%;
+    max-width: var(--main-max-width);
+}
+
+nav {
+    margin-inline: var(--container-padding);
+    align-self: stretch;
+}
+
+nav ul {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    justify-content: center;
+    gap: var(--container-block-gap);
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.converter-panel,
+.visualization-panel {
+    min-width: 0;
+}
+
+.converter-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--container-block-gap);
+}
+
+.visualization-panel {
+    min-height: 0;
+}
+
+.offline-note {
+    color: var(--subtle-text-color);
+    font-weight: 700;
+}
+
+.file,
+label {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.selected-file {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.selected-file span {
+    color: var(--subtle-text-color);
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.selected-file strong {
+    overflow-wrap: anywhere;
+}
+
+.clear-file {
+    justify-self: start;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--container-block-gap);
+}
+
+.grid > label {
+    flex: 1 1 12rem;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.check input {
+    width: auto;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.actions > button {
+    flex: 1 1 12rem;
+}
+
+.drop-zone {
+    display: grid;
+    aspect-ratio: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    padding: var(--elevation-1--inner-padding);
+    border-radius: var(--container-border-radius);
+    box-shadow: var(--elevation-1);
+    background: var(--secondary-pane-background-color-1);
+    color: var(--main-text-color);
+}
+
+.upload-prompt,
+.svg-preview {
+    grid-area: 1 / 1;
+}
+
+.upload-prompt {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    padding: calc(var(--elevation-1--inner-padding) + var(--container-padding));
+    text-align: center;
+}
+
+.upload-prompt p {
+    margin: 0;
+    color: var(--subtle-text-color);
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: 700;
+}
+
+.file-button {
+    display: inline-grid;
+    cursor: pointer;
+}
+
+.converter-panel .file-button {
+    align-self: stretch;
+}
+
+.file-button input {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.file-button span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--container-border-radius);
+    background: var(--accent-color, currentColor);
+    color: var(--accent-contrast-color, canvas);
+    font-weight: 700;
+}
+
+.svg-preview {
+    display: none;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: canvas;
+    object-fit: contain;
+}
+
+.drop-zone.has-preview .upload-prompt {
+    display: none;
+}
+
+.drop-zone.has-preview .svg-preview {
+    display: block;
+}
+
+@media (min-width: 1024px) {
+    main > section {
+        display: grid;
+        grid-template-columns: fit-content(24rem) minmax(0, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+        "controls preview";
+        gap: var(--container-block-gap);
+        align-items: stretch;
+    }
+
+    .converter-panel {
+        grid-area: controls;
+        position: sticky;
+        top: var(--container-padding);
+        width: 100%;
+    }
+
+    .visualization-panel {
+        grid-area: preview;
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+        contain: size layout;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .visualization-panel .drop-zone {
+        aspect-ratio: auto;
+        flex: 1 1 auto;
+        height: 100%;
+        min-height: 0;
+    }
+
+    .converter-panel .grid,
+    .actions {
+        flex-direction: column;
+    }
+
+    .grid > label,
+    .actions > button {
+        flex-basis: auto;
+    }
+}

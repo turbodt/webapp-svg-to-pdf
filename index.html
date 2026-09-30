@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#f08a38">
+        <meta name="description" content="Convert SVG documents to PDFs in your browser, even while offline.">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/app-icon.svg">
+        <title>SVG to PDF</title>
+    </head>
+    <body>
+        <header>
+            <hgroup>
+                <h1>SVG to PDF</h1>
+            </hgroup>
+        </header>
+        <main>
+            <nav>
+                <ul>
+                    <li><a target="__blank" rel="noopener"
+                            href="https://www.dtorres.site/software/published.html#svg-to-pdf"
+                        >What's this?</a>
+                    </li>
+                    <li><a target="__blank" rel="noopener"
+                            href="https://www.dtorres.site"
+                        >About me</a>
+                    </li>
+                </ul>
+            </nav>
+            <section>
+                <div class="converter-panel" aria-labelledby="converter-title">
+                    <h2 id="converter-title">Converter</h2>
+                    <p class="selected-file"><span>Selected file</span><strong id="file-name">No SVG loaded</strong></p>
+                    <input id="file" type="file" accept=".svg,image/svg+xml">
+                    <button id="clear-file" class="clear-file" type="button" hidden>Clear</button>
+                    <div class="grid">
+                        <label>Container width <input id="container-width" type="number" value="2400" min="1"></label>
+                        <label>Container height <input id="container-height" type="number" value="3400" min="1"></label>
+                        <label>PDF size
+                            <select id="pdf-size">
+                                <option value="">Original page size</option>
+                                <option value="a4-portrait" selected>A4 portrait</option>
+                                <option value="a4-landscape">A4 landscape</option>
+                                <option value="letter-portrait">Letter portrait</option>
+                                <option value="letter-landscape">Letter landscape</option>
+                            </select>
+                        </label>
+                        <label class="check"><input id="include-containers" type="checkbox"> Include page containers</label>
+                    </div>
+                    <div class="actions">
+                        <button id="to-pdf" class="primary" type="button">Download PDF</button>
+                        <button id="first-svg" type="button">Download Page 1 SVG</button>
+                        <button id="all-svg" type="button">Extract All SVG Pages</button>
+                    </div>
+                    <pre id="status">Loading WASM...</pre>
+                </div>
+                <div class="visualization-panel" aria-label="Visualization panel">
+                    <div id="drop-zone" class="drop-zone">
+                        <div id="upload-prompt" class="upload-prompt">
+                            <p>Drop an SVG file here</p>
+                        </div>
+                        <img id="svg-preview" class="svg-preview" alt="Selected SVG preview">
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            (C) Daniel Torres 2026
+        </footer>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>
