@@ -5,7 +5,8 @@ import "@turbodt/personal-webpage-style/styles/components/header.css";
 import "@turbodt/personal-webpage-style/styles/components/footer.css";
 import "@turbodt/personal-webpage-style/styles/components/pre.css";
 import "@turbodt/personal-webpage-style/styles/forms/main.css";
-import { createSvgToPdfConverter } from "@turbodt/svg-to-pdf";
+import { createSvgToPdfConverter, PDF_SIZES } from "@turbodt/svg-to-pdf";
+import type { PdfNamedSize, PdfSizeOptions, SvgToPdfOptions } from "@turbodt/svg-to-pdf";
 import wasmUrl from "@turbodt/svg-to-pdf/svg-to-pdf.wasm?url";
 import "./style.css";
 import "./pwa";
@@ -59,15 +60,41 @@ const clearSelectedFile = () => {
     status.textContent = "Ready.";
 };
 
-const getOptions = () => {
-    const base = {
+function getPdfSizeOptions(): PdfSizeOptions {
+    const pdfSizeInputValue: string = !!pdfSizeInput.value
+        ? pdfSizeInput.value as string
+        : "a4-portrait"
+    ;
+
+    if (pdfSizeInputValue in Object.keys(PDF_SIZES)) {
+        return {
+            "pdfSize": pdfSizeInputValue as PdfNamedSize
+        };
+    }
+
+    switch (pdfSizeInputValue) {
+        case "slides-4:3":
+        return {
+            pdfWidth: 720,
+            pdfHeight: 540,
+        };
+        case "slides-16:9":
+        return {
+            pdfWidth: 960,
+            pdfHeight: 540,
+        };
+    }
+
+    throw new Error("Invalid PDF size type.");
+}
+
+const getOptions = (): SvgToPdfOptions => {
+    return {
         containerWidth: Number(widthInput.value),
         containerHeight: Number(heightInput.value),
-        includeContainers: includeContainersInput.checked
+        includeContainers: includeContainersInput.checked,
+        ...getPdfSizeOptions(),
     };
-    return pdfSizeInput.value
-        ? { ...base, pdfSize: pdfSizeInput.value as "a4-portrait" }
-        : base;
 };
 
 const download = (bytes: Uint8Array, filename: string, type: string) => {
