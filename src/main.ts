@@ -66,7 +66,7 @@ function getPdfSizeOptions(): PdfSizeOptions {
         : "a4-portrait"
     ;
 
-    if (pdfSizeInputValue in Object.keys(PDF_SIZES)) {
+    if (pdfSizeInputValue in PDF_SIZES) {
         return {
             "pdfSize": pdfSizeInputValue as PdfNamedSize
         };
