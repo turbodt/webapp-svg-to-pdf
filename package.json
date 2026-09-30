@@ -7,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@turbodt/personal-webpage-style": "file:../../projects/personal-webpage-style",
+    "@turbodt/personal-webpage-style": "^1.0.1",
     "@turbodt/svg-to-pdf": "latest"
   },
   "devDependencies": {

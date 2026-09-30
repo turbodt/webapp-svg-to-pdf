@@ -1,3 +1,4 @@
 node_modules/
 dist/
 public/svg-to-pdf.wasm
+.env
