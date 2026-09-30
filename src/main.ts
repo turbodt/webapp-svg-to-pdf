@@ -16,7 +16,9 @@ const fileInput = document.getElementById("file") as HTMLInputElement;
 const fileName = document.getElementById("file-name") as HTMLElement;
 const clearFileButton = document.getElementById("clear-file") as HTMLButtonElement;
 const dropZone = document.getElementById("drop-zone") as HTMLElement;
+const previewFrame = document.getElementById("preview-frame") as HTMLElement;
 const svgPreview = document.getElementById("svg-preview") as HTMLImageElement;
+const previewBackgroundInputs = document.querySelectorAll<HTMLInputElement>("input[name='preview-background']");
 const widthInput = document.getElementById("container-width") as HTMLInputElement;
 const heightInput = document.getElementById("container-height") as HTMLInputElement;
 const pdfSizeInput = document.getElementById("pdf-size") as HTMLSelectElement;
@@ -31,6 +33,11 @@ const getFile = () => {
 };
 
 const isSvgFile = (file: File) => file.type === "image/svg+xml" || file.name.toLowerCase().endsWith(".svg");
+
+const setPreviewBackground = (value: string) => {
+    previewFrame.classList.toggle("preview-background-light", value === "light");
+    previewFrame.classList.toggle("preview-background-dark", value === "dark");
+};
 
 const setSelectedFile = (file: File) => {
     if (!isSvgFile(file)) {
@@ -110,6 +117,18 @@ const download = (bytes: Uint8Array, filename: string, type: string) => {
 async function main() {
     const converter = await createSvgToPdfConverter({ wasmUrl });
     status.textContent = "Ready.";
+
+    setPreviewBackground(
+        document.querySelector<HTMLInputElement>(
+            "input[name='preview-background']:checked"
+        )?.value ?? 'light'
+    );
+
+    previewBackgroundInputs.forEach(input => {
+        input.addEventListener("change", () => {
+            if (input.checked) setPreviewBackground(input.value);
+        });
+    });
 
     fileInput.addEventListener("change", () => {
         const file = fileInput.files?.[0];

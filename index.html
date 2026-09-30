@@ -34,6 +34,11 @@
                     <p class="selected-file"><span>Selected file</span><strong id="file-name">No SVG loaded</strong></p>
                     <input id="file" type="file" accept=".svg,image/svg+xml">
                     <button id="clear-file" class="clear-file" type="button" hidden>Clear</button>
+                    <fieldset class="preview-background">
+                        <legend>Preview background</legend>
+                        <label><input type="radio" name="preview-background" value="light" checked> Light</label>
+                        <label><input type="radio" name="preview-background" value="dark"> Dark</label>
+                    </fieldset>
                     <div class="grid">
                         <label>Container width <input id="container-width" type="number" value="2400" min="1"></label>
                         <label>Container height <input id="container-height" type="number" value="3400" min="1"></label>
@@ -62,7 +67,9 @@
                         <div id="upload-prompt" class="upload-prompt">
                             <p>Drop an SVG file here</p>
                         </div>
-                        <img id="svg-preview" class="svg-preview" alt="Selected SVG preview">
+                        <div id="preview-frame" class="preview-frame">
+                            <img id="svg-preview" class="svg-preview" alt="Selected SVG preview">
+                        </div>
                     </div>
                 </div>
             </section>
