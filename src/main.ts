@@ -68,6 +68,17 @@ const clearSelectedFile = () => {
 };
 
 function getPdfSizeOptions(): PdfSizeOptions {
+
+    const widthInputValue = Number(widthInput.value);
+    const heightInputValue = Number(heightInput.value);
+
+    if (!pdfSizeInput.value && !!widthInputValue && !!heightInputValue) {
+        return {
+            pdfWidth: widthInputValue,
+            pdfHeight: heightInputValue,
+        };
+    }
+
     const pdfSizeInputValue: string = !!pdfSizeInput.value
         ? pdfSizeInput.value as string
         : "a4-portrait"
@@ -149,6 +160,8 @@ async function main() {
 
     document.getElementById("to-pdf")?.addEventListener("click", async () => {
         try {
+            console.log(getOptions());
+            throw new Error("");
             const file = getFile();
             status.textContent = "Converting to PDF...";
             const pdf = await converter.convertToPdf(file, getOptions());
