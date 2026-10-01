@@ -160,8 +160,6 @@ async function main() {
 
     document.getElementById("to-pdf")?.addEventListener("click", async () => {
         try {
-            console.log(getOptions());
-            throw new Error("");
             const file = getFile();
             status.textContent = "Converting to PDF...";
             const pdf = await converter.convertToPdf(file, getOptions());
