@@ -170,18 +170,6 @@ async function main() {
         }
     });
 
-    document.getElementById("first-svg")?.addEventListener("click", async () => {
-        try {
-            const file = getFile();
-            status.textContent = "Extracting page 1...";
-            const page = await converter.convertPageToSvg(file, 1, getOptions());
-            download(page, file.name.replace(/\.svg$/i, "-page-1.svg"), "image/svg+xml");
-            status.textContent = `Page 1 SVG ready: ${page.length.toLocaleString()} bytes.`;
-        } catch (err) {
-            status.textContent = String(err);
-        }
-    });
-
     document.getElementById("all-svg")?.addEventListener("click", async () => {
         try {
             const file = getFile();
